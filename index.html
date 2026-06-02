@@ -271,7 +271,11 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var
       <div class="prog-wrap"><div class="prog-fill" id="dm-fat-bar" style="width:0%;background:var(--lavender)"></div></div>
     </div>
     <div style="border-top:1px solid var(--border);margin-top:14px;padding-top:12px">
-      <div style="font-size:11px;color:var(--text3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px">Manual Add</div>
+      <div onclick="toggleManualAdd()" style="display:flex;align-items:center;justify-content:space-between;cursor:pointer">
+        <div style="font-size:11px;color:var(--text3);letter-spacing:.08em;text-transform:uppercase">Manual Add</div>
+        <div id="madd-toggle" style="width:24px;height:24px;border-radius:50%;background:var(--bg3);color:var(--rose);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;line-height:1">+</div>
+      </div>
+      <div id="madd-body" style="display:none;margin-top:12px">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
         <div style="display:flex;gap:6px;align-items:center">
           <input type="number" id="madd-cal" placeholder="kcal" min="0" style="flex:1;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);padding:7px 10px;color:var(--text);font-size:13px;font-family:var(--body);outline:none;width:100%">
@@ -291,6 +295,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:var
         </div>
       </div>
       <button onclick="resetMacros()" style="margin-top:10px;width:100%;background:transparent;border:1px solid var(--border2);border-radius:var(--radius);padding:7px;color:var(--text3);font-size:12px;cursor:pointer;font-family:var(--body)">Reset Today's Macros</button>
+      </div>
     </div>
   </div>
 
@@ -1234,6 +1239,14 @@ function importData(event){
   };
   reader.readAsText(file);
   event.target.value = '';
+}
+
+function toggleManualAdd(){
+  const body=document.getElementById('madd-body');
+  const toggle=document.getElementById('madd-toggle');
+  const open=body.style.display!=='none';
+  body.style.display=open?'none':'block';
+  toggle.textContent=open?'+':'–';
 }
 
 function manualAdd(type){
